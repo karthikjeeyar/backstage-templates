@@ -2,30 +2,37 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 # some metadata about the template itself
 metadata:
-  name: v1beta3-demo
-  title: Test Action template
-  description: scaffolder v1beta3 template demo
+  name: react-template
+  title: React Application Template
+  description: creates a react application
 spec:
-  owner: backstage/techdocs-core
+  owner: karthikjeeyar
   type: service
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Fill in some steps
       required:
-        - name
+        - component_id
+        - owner
       properties:
-        name:
+        component_id:
           title: Name
           type: string
           description: Unique name of the component
-          ui:autofocus: true
-          ui:options:
-            rows: 5
+          ui:field: EntityNamePicker
         description:
           title: Description
           type: string
-          description: A description for the component
+          description: Help others understand what this website is for.
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Groups
     - title: Choose a location
       required:
         - repoUrl
@@ -41,27 +48,23 @@ spec:
   # here's the steps that are executed in series in the scaffolder backend
   steps:
     - id: fetch-base
-      name: Fetch Base
+      name: Fetch React Template
       action: fetch:template
       input:
         url: ./template
         values:
-          name: ${{ parameters.name }}
-
-    - id: fetch-docs
-      name: Fetch Docs
-      action: fetch:plain
-      input:
-        targetPath: ./community
-        url: https://github.com/backstage/community/tree/main/backstage-community-sessions
-
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
     - id: publish
       name: Publish
       action: publish:github
       input:
         allowedHosts: ["github.com"]
-        description: This is ${{ parameters.name }}
+        description: This is a sample ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: public
 
     - id: register
       name: Register
@@ -69,3 +72,10 @@ spec:
       input:
         repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
         catalogInfoPath: "/catalog-info.yaml"
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
