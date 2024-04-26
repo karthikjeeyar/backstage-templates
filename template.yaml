@@ -81,7 +81,7 @@ spec:
         namespace: ${{ parameters.namespace }}
         repoUrl: ${{ steps.publish.output.remoteUrl }}
         labelValue: ${{ parameters.name }}
-        path: "kubernetes/nonprod"
+        path: "gitops"
   output:
     links:
       - title: Repository
