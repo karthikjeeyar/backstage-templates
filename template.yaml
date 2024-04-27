@@ -72,6 +72,16 @@ spec:
       input:
         repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
         catalogInfoPath: "/catalog-info.yaml"
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        appName: ${{ parameters.name }}-nonprod
+        argoInstance: ${{ parameters.argoinstance }}
+        namespace: ${{ parameters.namespace }}
+        repoUrl: ${{ steps.publish.output.remoteUrl }}
+        labelValue: ${{ parameters.name }}
+        path: "gitops"
 
   output:
     links:
