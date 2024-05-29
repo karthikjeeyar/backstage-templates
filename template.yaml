@@ -21,7 +21,6 @@ spec:
           type: string
           description: Unique name of the component
           ui:field: EntityNamePicker
-          pattern: '/[0-9]/g'
         description:
           title: Description
           type: string
@@ -54,7 +53,7 @@ spec:
       input:
         url: ./template
         values:
-          component_id: ${{ parameters.component_id }}
+          component_id: ${{ parameters.component_id  | replace(".", "") } }}
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
