@@ -53,7 +53,7 @@ spec:
       input:
         url: ./template
         values:
-          component_id: ${{ parameters.component_id  | replace(".", "") } }}
+          component_id: ${{ parameters.component_id }}
           description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
