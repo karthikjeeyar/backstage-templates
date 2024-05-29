@@ -21,6 +21,7 @@ spec:
           type: string
           description: Unique name of the component
           ui:field: EntityNamePicker
+          pattern: '/[0-9]/g'
         description:
           title: Description
           type: string
