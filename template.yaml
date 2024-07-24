@@ -72,16 +72,26 @@ spec:
     #   input:
     #     repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
     #     catalogInfoPath: "/catalog-info.yaml"
-    - id: create-argocd-resources
-      name: Create ArgoCD Resources
-      action: argocd:create-resources
-      input:
-        appName: ${{ parameters.name }}-nonprod
-        argoInstance: ${{ parameters.argoinstance }}
-        namespace: ${{ parameters.namespace }}
-        repoUrl: ${{ steps.publish.output.remoteUrl }}
-        labelValue: ${{ parameters.name }}
-        path: "gitops"
+    # - id: create-argocd-resources
+    #   name: Create ArgoCD Resources
+    #   action: argocd:create-resources
+    #   input:
+    #     appName: ${{ parameters.name }}-nonprod
+    #     argoInstance: ${{ parameters.argoinstance }}
+    #     namespace: ${{ parameters.namespace }}
+    #     repoUrl: ${{ steps.publish.output.remoteUrl }}
+    #     labelValue: ${{ parameters.name }}
+    #     path: "gitops"
+      - id: create-argocd-resources
+        name: Create ArgoCD Resources
+        action: argocd:create-resources
+        input:
+          appName: test-app
+          argoInstance: main
+          namespace: rh-dev
+          repoUrl: https://github.com/karthikjeeyar/react-app
+          labelValue: test-app
+          path: "gitops"
 
   output:
     links:
