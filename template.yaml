@@ -89,7 +89,7 @@ spec:
           appName: test-app
           argoInstance: main
           namespace: rh-dev
-          repoUrl: https://github.com/karthikjeeyar/react-app
+          repoUrl: https://github.com/karthikjeeyar/backstage-templates
           labelValue: test-app
           path: "gitops"
 
