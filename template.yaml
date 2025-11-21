@@ -81,16 +81,16 @@ spec:
     #     repoUrl: ${{ steps.publish.output.remoteUrl }}
     #     labelValue: ${{ parameters.name }}
     #     path: "gitops"
-      - id: create-argocd-resources
-        name: Create ArgoCD Resources
-        action: argocd:create-resources
-        input:
-          appName: test-app
-          argoInstance: main
-          namespace: rh-dev
-          repoUrl: https://github.com/karthikjeeyar/backstage-templates
-          labelValue: test-app
-          path: "gitops"
+    - id: create-argocd-resources
+      name: Create ArgoCD Resources
+      action: argocd:create-resources
+      input:
+        appName: test-app
+        argoInstance: main
+        namespace: rh-dev
+        repoUrl: https://github.com/karthikjeeyar/backstage-templates
+        labelValue: test-app
+        path: "gitops"
 
   output:
     links:
