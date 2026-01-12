@@ -16,6 +16,24 @@ spec:
         - component_id
         - owner
       properties:
+        ownEntity:
+          title: target
+          type: string
+          "ui:field": OwnedEntityPicker
+          "ui:options":
+            catalogFilter:
+            - kind: component
+              metadata.namespace: system1
+            - kind: component
+              metadata.namespace: system2
+            - kind: component
+              metadata.namespace: systems3
+            - kind: component
+              metadata.namespace: systems4
+            - kind: component
+              metadata.namespace: systems5
+            - kind: component
+              metadata.namespace: systems6
         component_id:
           title: Name
           type: string
